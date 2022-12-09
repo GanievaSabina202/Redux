@@ -1,8 +1,16 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { Increment } from '../features/products/ProductsSlice';
 
 const Basket = () => {
     const addProductsItem = useSelector((state) => state.products.addProducts)
+    const IncrementItem = useSelector((state) => state.products.plusProduct)
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        console.log(IncrementItem, "IncrementItem");
+    }, [])
+
     return (
         <div>
             {addProductsItem.map((item) => (
@@ -18,8 +26,10 @@ const Basket = () => {
                         height: "50px",
                         objectFit: "contain"
                     }} />
-                    <button>+</button>
+                    <h6>Count: {item.count} </h6>
+                    <button onClick={() => dispatch(Increment(item))}>+</button>
                     <button>-</button>
+
                 </div>
             ))
             }
